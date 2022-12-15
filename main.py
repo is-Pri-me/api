@@ -1,25 +1,10 @@
-from fastapi import FastAPI, HTTPException
-from primes import is_prime
+from routers import numbers
+from fastapi import FastAPI
 
 app = FastAPI()
+app.include_router(numbers.router)
 
 
-@app.get("/")
-async def index():
-    return {"hello": "world"}
-
-
-@app.get("/healthcheck")
-async def healthcheck():
+@app.get("/health_check")
+async def health_check():
     return {"result": "ok"}
-
-
-@app.get("/{number}")
-async def get_number(number: int):
-    result = await is_prime(number)
-    return {"number": number, "is_prime": result}
-
-
-@app.get("/error/")
-async def error():
-    raise HTTPException(400, detail="Not authorized")

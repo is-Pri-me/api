@@ -1,6 +1,11 @@
 from fastapi import HTTPException, status
 
 
+class UnknownError(HTTPException):
+    def __init__(self, error: str):
+        super().__init__(status.HTTP_500_INTERNAL_SERVER_ERROR, error)
+
+
 class NumberTooLarge(HTTPException):
     def __init__(self, number: int):
         error = f"{number} is too large, not in our dataset"
@@ -13,7 +18,7 @@ class NumberTooSmall(HTTPException):
         super().__init__(status.HTTP_406_NOT_ACCEPTABLE, error)
 
 
-class InvalidRange(HTTPException):
-    def __init__(self, start: int, end: int):
-        error = f"Invalid range ({start} {end}), start must be less than end"
+class RangeTooLarge(HTTPException):
+    def __init__(self, limit: int):
+        error = f"Range too large, must be less than {limit}"
         super().__init__(status.HTTP_406_NOT_ACCEPTABLE, error)
