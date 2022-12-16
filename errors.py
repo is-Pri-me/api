@@ -1,5 +1,7 @@
 from fastapi import HTTPException, status
 
+from core import MAX_PRIME
+
 
 class UnknownError(HTTPException):
     def __init__(self, error: str):
@@ -8,7 +10,7 @@ class UnknownError(HTTPException):
 
 class NumberTooLarge(HTTPException):
     def __init__(self, number: int):
-        error = f"{number} is too large, not in our dataset"
+        error = f"{number} is too large, out dataset ends at {MAX_PRIME})"
         super().__init__(status.HTTP_406_NOT_ACCEPTABLE, error)
 
 
