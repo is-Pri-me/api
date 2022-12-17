@@ -1,22 +1,17 @@
+import numpy as np
 from fastapi import APIRouter
+from numpy import random
 
 from core import MAX_PRIME, PRIMES_PER_FILE, get_ranges, range_index
-from errors import (
-    NumberTooLarge,
-    NumberTooSmall,
-    UnknownError,
-    RangeTooLarge,
-)
+from errors import IndexTooSmall, NumberTooLarge, NumberTooSmall, RangeTooLarge, UnknownError
 from models import BaseNumber, PrimeRangeResponse
-import numpy as np
-from numpy import random
 
 router = APIRouter(
     tags=["Numbers"],
 )
 
 
-@router.get("/", description="Returns a random prime number")
+@router.get("/random", description="Returns a random prime number")
 async def get_random() -> BaseNumber:
     ranges = get_ranges()
     random_range = random.choice(ranges)
@@ -54,7 +49,23 @@ async def get_number(number: int) -> BaseNumber:
     raise UnknownError(f"Unable to find {number} in our dataset (r:{prime_range}))")
 
 
-@router.get("/primes_in_range", description="Returns a list of primes in the range")
+@router.get("/index/{index}", description="Returns the prime number at the given index")
+def prime_index(index: int) -> BaseNumber:
+    # TODO: This is just a placeholder, it's not correct
+    if index < 0:
+        raise IndexTooSmall()
+    elif index > MAX_PRIME:  # todo: This is wrong, should be max index
+        raise NumberTooLarge(index)
+    else:
+        prime_range = get_ranges()[range_index(index)]
+        try:
+            prime = prime_range.prime_at_index(index)
+            return BaseNumber(number=prime, is_prime=True, prime_index=index)
+        except ValueError:
+            pass
+
+
+@router.get("/primes_in_range", description="Returns a list of prime numbers")
 def get_primes_in_range(start: int, limit: int) -> PrimeRangeResponse:
     RANGE_LIMIT = 100
 

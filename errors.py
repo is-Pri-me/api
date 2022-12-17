@@ -8,6 +8,12 @@ class UnknownError(HTTPException):
         super().__init__(status.HTTP_500_INTERNAL_SERVER_ERROR, error)
 
 
+class IndexTooSmall(HTTPException):
+    def __init__(self):
+        error = "Index has to be larger than 0"
+        super().__init__(status.HTTP_406_NOT_ACCEPTABLE, error)
+
+
 class NumberTooLarge(HTTPException):
     def __init__(self, number: int):
         error = f"{number} is too large, out dataset ends at {MAX_PRIME})"
