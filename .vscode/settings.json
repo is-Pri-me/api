@@ -7,6 +7,7 @@
     "python.formatting.provider": "black",
     "cSpell.words": [
         "boto",
+        "codecov",
         "dotenv",
         "searchsorted"
     ]
