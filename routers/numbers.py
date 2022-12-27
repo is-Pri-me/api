@@ -3,7 +3,13 @@ from fastapi import APIRouter
 from numpy import random
 
 from core import MAX_PRIME, PRIMES_PER_FILE, get_ranges, range_index
-from errors import IndexTooSmall, NumberTooLarge, NumberTooSmall, RangeTooLarge, UnknownError
+from errors import (
+    IndexTooSmall,
+    NumberTooLarge,
+    NumberTooSmall,
+    RangeTooLarge,
+    UnknownError,
+)
 from models import BaseNumber, PrimeRangeResponse
 
 router = APIRouter(
