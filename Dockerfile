@@ -22,6 +22,6 @@ RUN python -m pip install --upgrade --no-cache-dir pip \
 
 ENV PYTHONPATH=${APPDIR}
 USER ${USERNAME}
-EXPOSE 55555
+EXPOSE 8000
 VOLUME [ "/app/npz" ]
-CMD [ "uvicorn", "main:app", "--host=0.0.0.0", "--port=55555" ]
+CMD [ "uvicorn", "main:app", "--host=0.0.0.0" ]
