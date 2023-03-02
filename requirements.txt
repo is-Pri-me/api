@@ -2,5 +2,5 @@ boto3==1.26.39
 fastapi==0.92.0
 numpy==1.24.2
 pydantic[email]==1.10.5
-python-dotenv==0.21.1
+python-dotenv==1.0.0
 uvicorn==0.20.0
