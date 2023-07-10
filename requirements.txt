@@ -1,5 +1,5 @@
 boto3==1.26.39
-fastapi==0.98.0
+fastapi==0.100.0
 numpy==1.25.0
 pydantic[email]==1.10.9
 python-dotenv==1.0.0
